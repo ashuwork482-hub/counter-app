@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stylish Counter</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(-45deg, #667eea, #764ba2, #6dd5ed, #2193b0);
+    background-size:400% 400%;
+    animation: gradientMove 10s ease infinite;
+}
+
+@keyframes gradientMove{
+    0%{ background-position:0% 50%; }
+    50%{ background-position:100% 50%; }
+    100%{ background-position:0% 50%; }
+}
+.container{
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.15);
+    padding: 5vw;           /* responsive padding */
+    width: 90%;              /* screen ke hisab se width */
+    max-width: 350px;        /* large screens limit */
+    border-radius: 2rem;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,0.3);
+    border:1px solid rgba(255,255,255,0.3);
+}
+
+h1{
+    font-size: clamp(40px, 10vw, 70px); /* responsive number size */
+    margin-bottom: 5vw;                 /* responsive spacing */
+    transition:0.3s;
+    text-shadow:0 0 15px rgba(255,255,255,0.8);
+}
+
+.buttons{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap; /* wrap on small screens */
+    gap: 10px;      /* spacing between buttons */
+}
+
+button{
+    width: 20vw;           /* responsive width */
+    max-width: 70px;       /* desktop limit */
+    height: 20vw;          /* responsive height */
+    max-height: 70px;      /* desktop limit */
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+    font-size: clamp(16px, 4vw, 22px); /* responsive font */
+    transition:0.3s;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+#increase-btn{
+    background: linear-gradient(145deg,#28a745,#1e7e34);
+    color:white;
+}
+
+#decrease-btn{
+    background: linear-gradient(145deg,#dc3545,#a71d2a);
+    color:white;
+}
+
+#reset{
+    background: linear-gradient(145deg,#6c757d,#495057);
+    color:white;
+}
+
+button:hover{
+    transform:translateY(-5px) scale(1.1);
+}
+
+button:active{
+    transform:scale(0.95);
+}
+@media (max-width: 400px){
+    .container{
+        padding: 7px 10px;
+    }
+    button{
+        max-width: 60px;
+        height: 60px;
+    }
+    button:hover{
+        transform: scale(0.95);
+    }
+}
+
+</style>
+</head>
+<body>
+ 
+<div class="container">
+    <h1 id="count">0</h1>
+
+
+
+    <div class="buttons">
+        <button id="increase-btn">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+
+        <button id="decrease-btn">
+            <i class="fa-solid fa-minus"></i>
+        </button>
+
+        <button id="reset">
+            <i class="fa-solid fa-rotate-left"></i>
+        </button>
+    </div>
+</div>
+
+<script>
+let count = 0;
+
+const displayCount = document.getElementById('count')   
+const increaseBtn = document.getElementById('increase-btn');
+const decreaseBtn = document.getElementById('decrease-btn');
+const resetBtn = document.getElementById('reset')
+
+// increase
+increaseBtn.addEventListener('click',function(){
+    count++;
+    displayCount.textContent = count;
+    updateColor();
+})
+
+// decrease
+decreaseBtn.addEventListener('click',function(){
+    
+        count--;
+        displayCount.textContent = count;
+        updateColor();
+    
+})
+
+// reset
+resetBtn.addEventListener('click',function(){
+    count = 0;
+    displayCount.textContent = count;
+    updateColor();
+})
+
+function updateColor(){
+
+    if(count < 0){
+        displayCount.style.color = "red";
+    }
+    else if(count === 0){
+        displayCount.style.color = "black";
+    }
+    else if(count > 10){
+        displayCount.style.color = "purple";
+    }
+    else if(count > 5){
+        displayCount.style.color = "orange";
+    }
+    else{
+        displayCount.style.color = "green";
+    }
+
+}
+</script>
+
+</body>
+</html>
